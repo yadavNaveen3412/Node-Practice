@@ -1,0 +1,16 @@
+module.exports = function(template, product){
+    let output = template.replace('{{%PROD_IMG%}}', product.productImage)
+
+    output = output.replace('{{%PROD_NAME%}}', product.name)
+    output = output.replace('{{%MODEL_NAME%}}', product.nodeName)
+    output = output.replace('{{%MODEL_NO%}}', product.modelNumber)
+    output = output.replace('{{%SIZE%}}', product.size)
+    output = output.replace('{{%CAMERA%}}', product.camera)
+    output = output.replace('{{%PRICE%}}', product.price)
+    output = output.replace('{{%COLOR%}}', product.color)
+    output = output.replace('{{%ID%}}', `?id=${product.id}`)
+    output = output.replace('{{%ROM%}}', product.ROM)
+    output = output.replace('{{%DESC%}}', product.Description)
+
+    return output
+}

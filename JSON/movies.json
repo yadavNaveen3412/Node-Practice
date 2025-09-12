@@ -1,0 +1,50 @@
+[
+    {
+        "id": 1,
+        "Title": "The Lion King",
+        "Year": "2019",
+        "Runtime": "118 min"
+    },
+    {
+        "id": 2,
+        "Title": "Mowgli: Legend of the Jungle",
+        "Year": "2018",
+        "Runtime": "104 min"
+    },
+    {
+        "id": 3,
+        "Title": "Doctor Strange",
+        "Year": "2016",
+        "Runtime": "115 min"
+    },
+    {
+        "id": 4,
+        "Title": "John Wick",
+        "Year": "2014",
+        "Runtime": "101 min"
+    },
+    {
+        "id": 5,
+        "Title": "The Notebook",
+        "Year": "2004",
+        "Runtime": "123 min"
+    },
+    {
+        "id": 6,
+        "Title": "Iron Man",
+        "Year": "2008",
+        "Runtime": "126 min"
+    },
+    {
+        "id": 7,
+        "Title": "Iron Man 2",
+        "Year": "2010",
+        "Runtime": "124 min"
+    },
+    {
+        "id": 8,
+        "Title": "Iron Man 3",
+        "Year": "2013",
+        "Runtime": "130 min"
+    }
+]
