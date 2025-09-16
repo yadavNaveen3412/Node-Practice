@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
+const crypto = require("crypto");
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -21,7 +22,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please enter your password!!"],
     minlength: 8,
-    select: false
+    select: false,
   },
   confirmPassword: {
     type: String,
@@ -34,7 +35,23 @@ const userSchema = new mongoose.Schema({
       message: "Password and Confirm Passwrod does not match!!",
     },
   },
-  photo: String,    
+  role: {
+    type: String,
+    enum: ["user", "admin"],
+    default: "user",
+  },
+  photo: String,
+
+  resetPasswordToken: String,
+  resetPasswordTokenExpires: Date,
+  passwordChangedAt: {
+    type: Date,
+    default: Date.now(),
+  },
+  active: {
+    type: Boolean,
+    default: true,
+  },
 });
 
 userSchema.pre("save", async function (next) {
@@ -46,9 +63,26 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
-userSchema.methods.comparePasswordInDb = async function(pswd, pswdDB) {
-    return await bcrypt.compare(pswd, pswdDB)
-}
+userSchema.pre(/^find/, function (next) {
+  this.find({ active: { $ne: false } });
+  next();
+});
+
+userSchema.methods.comparePasswordInDb = async function (pswd, pswdDB) {
+  return await bcrypt.compare(pswd, pswdDB);
+};
+
+userSchema.methods.createResetPasswordToken = function () {
+  const resetToken = crypto.randomBytes(32).toString("hex");
+
+  this.resetPasswordToken = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
+  this.resetPasswordTokenExpires = Date.now() + 10 * 60 * 1000;
+
+  return resetToken;
+};
 
 const User = mongoose.model("User", userSchema);
 

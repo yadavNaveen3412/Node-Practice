@@ -6,11 +6,11 @@ const router = express.Router()
 
 router.route('/')
     .get(authController.protect, moviesController.getAllMovies)
-    .post(moviesController.CreateMovie)
+    .post(authController.protect, authController.restrict('admin'), moviesController.CreateMovie)
 
 router.route('/:name')
-    .get(moviesController.getMovieByID)
-    .patch(moviesController.UpdateMovie)
-    .delete(moviesController.DeleteMovie)
+    .get(authController.protect, moviesController.getMovieByID)
+    .patch(authController.protect, authController.restrict('admin'), moviesController.UpdateMovie)
+    .delete(authController.protect, authController.restrict('admin'), moviesController.DeleteMovie)
 
 module.exports = router
